@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Biologin - Chatbot</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #e0f7fa;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 20px;
+    }
+    h1 {
+      color: #00695c;
+    }
+    #chatbox {
+      width: 100%;
+      max-width: 600px;
+      height: 400px;
+      border: 2px solid #00695c;
+      background: #ffffff;
+      padding: 10px;
+      overflow-y: auto;
+      margin-bottom: 10px;
+    }
+    .message {
+      margin: 5px 0;
+    }
+    .user {
+      text-align: right;
+      color: #0277bd;
+    }
+    .bot {
+      text-align: left;
+      color: #2e7d32;
+    }
+    #inputArea {
+      display: flex;
+      gap: 10px;
+      width: 100%;
+      max-width: 600px;
+    }
+    input {
+      flex: 1;
+      padding: 10px;
+      font-size: 16px;
+    }
+    button {
+      padding: 10px 20px;
+      font-size: 16px;
+      background-color: #00796b;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #004d40;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>🤖 Biologin - Tu Asistente de Ciencias</h1>
+  <div id="chatbox"></div>
+  <div id="inputArea">
+    <input type="text" id="userInput" placeholder="Escribe un mensaje...">
+    <button onclick="sendMessage()">Enviar</button>
+  </div>
+
+  <script>
+    const chatbox = document.getElementById('chatbox');
+
+    function appendMessage(sender, text) {
+      const message = document.createElement('div');
+      message.classList.add('message', sender);
+      message.textContent = text;
+      chatbox.appendChild(message);
+      chatbox.scrollTop = chatbox.scrollHeight;
+    }
+
+    function sendMessage() {
+      const input = document.getElementById('userInput');
+      const userText = input.value.trim();
+      if (userText === '') return;
+
+      appendMessage('user', userText);
+      respondToCommand(userText.toLowerCase());
+      input.value = '';
+    }
+
+    function respondToCommand(command) {
+      let response = '';
+
+      switch (command) {
+        case 'hola':
+          response = '¡Hola! Soy Biologin, tu asistente de ciencias 😊';
+          break;
+        case 'biología':
+        case 'biologia':
+          response = 'La biología estudia los seres vivos, su estructura, función y evolución.';
+          break;
+        case 'química':
+        case 'quimica':
+          response = 'La química estudia la composición de la materia y sus transformaciones.';
+          break;
+        case 'física':
+        case 'fisica':
+          response = 'La física analiza los fenómenos naturales y las leyes del universo.';
+          break;
+        case 'adiós':
+        case 'adios':
+          response = '¡Hasta luego! Recuerda que la ciencia es asombrosa 🌱🔬';
+          break;
+        default:
+          response = 'Lo siento, no entiendo ese comando. Escribe: hola, biología, química, física o adiós.';
+      }
+
+      appendMessage('bot', response);
+    }
+  </script>
+
+</body>
+</html>
